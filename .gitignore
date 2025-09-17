@@ -1,0 +1,16 @@
+
+# Python virtual environments
+venv/
+.env/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# VS Code settings
+.vscode/
+
+# OS files
+Thumbs.db
+.DS_Store

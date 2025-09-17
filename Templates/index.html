@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Inventory Management System</title>
+	<style>
+	body{
+		margin: 0;
+		
+	}
+	#table2 {
+    border-collapse: collapse;
+    
+	}
+
+	#table2 th, #table2 td {
+	    text-align: left;
+	    padding: 8px;
+	}
+
+	#table2 tr:nth-child(even){background-color: #f2f2f2}
+
+	#table2 th {
+	    background-color: #4CAF50;
+	    color: white;
+	}
+	#table2 tr:hover, #table2 tr:nth-child(even):hover{
+		background: grey;
+		color: white;
+	}
+	.nav button{
+		height: auto;
+		border-radius: 5px;
+		background: grey;
+		border: none;
+		margin: 0px;
+		padding: 0px;
+		width: 90%;
+	}
+	.nav button span{
+		font-size: 25px;
+		color: white;
+		height: 50px !important;
+
+	}
+	.nav #p{
+		font-size: 16px;
+		color: white;
+
+	}
+	#sidebar{
+		left: 0px;
+	}
+	#sidebar li{
+		list-style-type:none: ; 
+		width: 100%;
+		padding: 5px;
+		left: 0px;
+		float: left;
+		font-size:20px;
+		margin: auto;
+
+	}
+	#sidebar li:hover{
+		background: red;
+
+	}
+	</style>
+</head>
+<body>
+<div style="width:17%; height:99vh; background:#267326; position: relative; float:left; color: white; padding: 5px;">
+	<h3 style="font-size: 30px;">Shoe Store Inventory Management System</h3>
+	<hr>
+	<ul style="list-style-type:none;" id="sidebar">
+		<li>Products <span style="background:transparent; width:25px;cursor: pointer; height: 25px;border-radius: 100%;text-align: center;border:1px solid white;margin: auto;font-size:20px;margin: auto;">{{productcount.products}}</span></li>
+		<li>Suppliers <span style="background:transparent; width:25px;cursor: pointer; height: 25px;border-radius: 100%;text-align: center;border:1px solid white;margin: auto;font-size:20px;margin: auto;">{{supplierscount.suppliers}}</span></li>
+		<li>Orders  <span style="background:transparent; width:25px;cursor: pointer; height: 25px;border-radius: 100%;text-align: center;border:1px solid white;margin: auto;font-size:20px;margin: auto;">{{orderscount.orders}}</span></li>
+		<li>Purchases  <span style="background:transparent; width:25px;cursor: pointer; height: 25px;border-radius: 100%;text-align: center;border:1px solid white;margin: auto;font-size:20px;margin: auto;">{{purchesescount.purcheses}}</span></li>
+		
+	</ul>
+</div>
+<div style="width:82%; height: 100%; float: right;">
+<div class="nav" style="width: 100%;">
+	<table style="width:100%; align-content: center;">
+		<tr>
+			<td>
+	<button style="background: #00802b;"><br>
+		<span>Available</span><br><br>
+		<div style="background: #001a09; width: 100%;"><span id="p">{{available.available}}</span></div>
+	</button></td>
+	<td>
+	<button style="background:#006666;"><br>
+		<span>Received</span><br><br>
+		<div style="background: #001a1a; width: 100%;"><span id="p">{{available.received}}</span></div>
+	</button></td>
+	<td><button style="background:#005580;"><br>
+		<span>Shipped</span><br><br>
+		<div style="background: #00111a; width: 100%;"><span id="p">{{available.shipped}}</span></div>
+	</button></td>
+	<td><button style="background: #cc0000;"><br>
+		<span>Total Price</span><br><br>
+		<div style="background: #330000; width: 100%;"><span id="p">{{available.price}}</span></div>
+	</button></td>
+</tr>
+</table>
+</div>
+<hr>
+
+<div style="width: 100%;">
+	<table style="width: 100%;">
+		<tr>
+			<td>
+				<a href="/addproduct"><button style="background:transparent; width:25px;cursor: pointer; height: 25px;border-radius: 100%;text-align: center;border:1px solid red;"><p style="font-size:20px;margin: auto; color: red;">+</p></button><span style="font-size:20px; color: red;"> Purchase Product</span></a>
+			</td>
+			<td>
+				<a href="/addsupplier"><button style="background:transparent; width:25px;cursor: pointer; height: 25px;border-radius: 100%;text-align: center;border:1px solid blue;"><p style="font-size:20px;margin: auto; color: blue;">+</p></button><span style="font-size:20px; color: blue;"> Add Suppliers</span></a>
+			</td>
+		</tr>
+	</table>
+	<hr>
+
+<div style="width:100%;">
+	<table id="table2" style="width:69%; float:left;">
+	<thead >
+		<tr>
+			<th colspan="8" style="text-align: left; background:#004d1a;color: white;">Products</th>
+		</tr>
+		<tr>
+			<th>Product Name</th>
+			<th>Product Number</th>
+			<th>Starting Inventory</th>
+			<th>Received Inventory</th>
+			<th>Shipped Inventory</th>
+			<th>Available Inventory</th>
+			<th>Price (<span>&#x24;</span>)</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for product in results%}
+		{% if product.inventoryOnHand > product.minimumRequired%}
+		<tr>
+			<td>{{product.productName}}</td>
+			<td>{{product.productNumber}}</td>
+			<td>{{product.startingInventory}}</td>
+			<td>{{product.inventoryReceived}}</td>
+			<td>{{product.inventoryShipped}}</td>
+			<td>{{product.inventoryOnHand}}</td>
+			<td>{{product.price}}</td>
+			<td><a href="/manage/{{product.id}}">
+				<button style="background: green; border: none; height: 25px; width: 100%; color: white;">Manage</button>
+			</a> 
+			<a href="/order/{{product.id}}">
+				<button style="background: red; border: none; height: 25px;color: white; width: 100%;">Make Order</button>
+			</a> </td>
+		</tr>
+		{%elif product.inventoryOnHand <= product.minimumRequired %}
+		<tr style="background:tomato;">
+			<td>{{product.productName}}</td>
+			<td>{{product.productNumber}}</td>
+			<td>{{product.startingInventory}}</td>
+			<td>{{product.inventoryReceived}}</td>
+			<td>{{product.inventoryShipped}}</td>
+			<td>{{product.inventoryOnHand}}</td>
+			<td>{{product.price}}</td>
+			<td><a href="/manage/{{product.id}}">
+				<button style="background: green; border: none; height: 25px; width: 100%; color: white;">Manage</button>
+			</a> 
+			<a href="/order/{{product.id}}" >
+				<button disabled="" style="background: blue; border: none; height: 25px; width: 100%;color: white;">Make Order</button>
+			</a> </td>
+		</tr>
+		{%endif%}
+		{% endfor %}
+	</tbody>
+</table >
+
+<table id="table2" style="width: 29%; float: right;">
+	<thead>
+		<tr>
+			<th colspan="2" style="text-align: left; background:#004d1a;color: white;">
+				Suppliers
+			</th>
+		</tr>
+		<tr>
+			<th>#</th>
+			<th>Supplier's Name</th>
+		</tr>
+	</thead>
+	<tbody>
+		{%for supplier in suppliers %}
+		<tr>
+			<td>{{supplier.id}}</td>
+			<td>{{supplier.supplier}}</td>
+		</tr>
+		{%endfor%}
+	</tbody>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>

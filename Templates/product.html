@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Purchase Product</title>
+</head>
+<body style="display:flex;justify-content: center;">
+	<div style="width:400px; height: auto; border: 1px solid black;">
+		<form action="/purchaseproduct" method="post">
+			<label style="width: 100%"><h2>Purchase Product</h2></label>
+			<span style="width: 100%">Product Name</span><br>
+			<input style="width: 100%" type="text" name="name">
+			<span style="width: 100%">Product Number</span><br>
+			<input style="width: 100%" type="number" name="number">
+			<span style="width: 100%">Starting Inventory</span><br>
+			<input style="width: 100%" type="number" name="starting">
+			<span style="width: 100%">Product Price</span><br>
+			<input style="width: 100%" type="number" name="price">
+			<span style="width: 100%">Supplier</span><br>
+			<select style="width: 100%" name="supplier">
+			{%for supplier in suppliers%}
+    		<option  value="{{supplier.id}}">{{supplier.supplier}}</option>
+    		{%endfor%}
+    		</select>
+			<span style="width: 100%">Purchase Date</span><br>
+			<input style="width: 100%" type="date" name="date">
+			
+			<hr>
+			<input style="width: 100%" type="submit" name="submit" value="Submit Order">
+		</form>
+	</div>
+</body>
+</html>

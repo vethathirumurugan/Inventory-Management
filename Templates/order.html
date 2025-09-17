@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Order {{results.productName}}</title>
+</head>
+<body style="display:flex;justify-content: center;">
+	<div style="width:400px; height:200px; border: 1px solid black;">
+		<form action="/makeorder" method="post">
+			<label style="width: 100%"><h2>Order {{results.productName}}</h2></label>
+			<span style="width: 100%">Required Amount</span><br>
+			<input type="number" name="pid" value="{{results.id}}" hidden="">
+			<input type="number" name="inventoryShipped" value="{{results.inventoryShipped}}" hidden="">
+			<input type="number" name="inventoryOnHand" value="{{results.inventoryOnHand}}" hidden="">
+			<input style="width: 100%" type="number"  name="amount">
+			<hr>
+			<input style="width: 100%" type="submit" name="submit" value="Submit Order">
+		</form>
+	</div>
+</body>
+</html>
